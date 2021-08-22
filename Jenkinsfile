@@ -48,8 +48,8 @@ pipeline {
 		stage('Delete Tomcat Container') {
             steps {
 				echo 'Deleting Tomcat Container..'
-				sh 'docker stop loginwebapp-tomcat'
-				sh 'docker rm loginwebapp-tomcat'
+				sh 'docker stop LoginWebApp-tomcat'
+				sh 'docker rm LoginWebApp-tomcat'
 				
             }
         }
