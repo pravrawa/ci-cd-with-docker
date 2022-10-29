@@ -42,9 +42,17 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker Image..'
-                sh 'docker build -t tycoon2506/loginwebapp:$BUILD_NUMBER .'
+                sh 'docker build -t nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER .'
             }
         }
+	    stage('Push image to Nexus Repository ') {
+            steps {
+                 echo 'Uploading Docker Image to Nexus repository..'
+				withDockerRegistry(credentialsId: 'nexus-cred', url: 'http://nexus-demo:8085') {
+				sh  'docker push nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER'
+				}
+			}
+		}	
 		stage('Delete Tomcat Container') {
             steps {
 				echo 'Deleting Tomcat Container..'
@@ -56,7 +64,7 @@ pipeline {
 		stage('Run Docker container on Jenkins Agent') {
             steps {
                 echo 'Running Tomcat Container..'
-                sh 'docker run --name LoginWebApp-tomcat -d -p 8091:8080 tycoon2506/loginwebapp:$BUILD_NUMBER'
+                sh 'docker run --name LoginWebApp-tomcat -d -p 8091:8080 nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER'
             }
         }
         stage('Deploy') {
