@@ -50,8 +50,9 @@ pipeline {
                  echo 'Uploading Docker Image to Nexus repository..'
 				withDockerRegistry(credentialsId: 'nexus-cred', url: 'http://nexus-demo:8085') {
 				sh  'docker push nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER'
-				}    
-		stage('Delete Tomcat Container') {
+				}
+	    }
+	}	stage('Delete Tomcat Container') {
             steps {
 				echo 'Deleting Tomcat Container..'
 				sh 'docker stop LoginWebApp-tomcat'
