@@ -64,7 +64,7 @@ pipeline {
 		stage('Run Docker container on Jenkins Agent') {
             steps {
                 echo 'Running Tomcat Container..'
-                sh 'docker run --name LoginWebApp-tomcat -d -p 8091:8080 tycoon2506/loginwebapp:$BUILD_NUMBER'
+                sh 'docker run --name LoginWebApp-tomcat -d -p 8091:8080 nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER'
             }
         }
         stage('Deploy') {
