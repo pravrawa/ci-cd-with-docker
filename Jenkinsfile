@@ -42,7 +42,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker Image..'
-                sh 'docker build -t tycoon2506/loginwebapp:$BUILD_NUMBER .'
+                sh 'docker build -t nexus-demo:8085/tycoon2506/loginwebapp:$BUILD_NUMBER .'
             }
         }
 	    stage('Push image to Nexus Repository ') {
